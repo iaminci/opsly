@@ -62,9 +62,6 @@ const philosophy = [
 const MARQUEE_TEXT =
   "LOCAL-FIRST ◆ OFFLINE DEFAULT ◆ NO DRIFT MODE ◆ SINGLE TOOL ◆ BUILT TO LAST ◆ LOCAL-FIRST ◆ ";
 
-const MARQUEE_MONO_TEXT =
-  "[ RUNTIME ] BROWSER • [ STORAGE ] LOCAL • [ SYNC ] DISABLED • [ ACCOUNTS ] NONE • [ TELEMETRY ] OFF • [ RUNTIME ] BROWSER • ";
-
 function PrimaryCTA({
   children,
   href = MD_URL,
@@ -137,8 +134,25 @@ function VerticalMarquee() {
   );
 }
 
-function HeroMarqueeMono() {
-  return <Marquee text={MARQUEE_MONO_TEXT} variant="mono" />;
+function ProductsHeaderStrip() {
+  return (
+    <div className="border-y-2 border-[hsl(var(--ink))] bg-[hsl(var(--surface))]">
+      <div className="mx-auto flex w-full max-w-[1400px] items-center justify-between gap-4 py-3 pr-5 md:pr-10">
+        <span className="min-w-0 truncate font-mono-accent text-[11px] uppercase tracking-[0.25em] text-[hsl(var(--ink))]/55">
+          01 — Products
+        </span>
+        <span className="hidden shrink-0 px-2 text-center font-mono-accent text-[11px] uppercase tracking-[0.25em] text-[hsl(var(--ink))]/40 md:block">
+          No drift. Just control.
+        </span>
+        <span
+          className="shrink-0 font-mono-accent text-[11px] uppercase tracking-[0.25em] text-[hsl(var(--orange))]"
+          aria-hidden="true"
+        >
+          ↓
+        </span>
+      </div>
+    </div>
+  );
 }
 
 function TopBar() {
@@ -172,11 +186,6 @@ function TopBar() {
 function HeroTerminal() {
   return (
     <div className="relative pointer-events-none select-none" aria-hidden="true">
-      {/* Tag label sticking out (intentional misalignment) */}
-      {/* <div className="absolute -top-4 left-6 z-10 inline-flex -translate-y-1 items-center gap-2 border-2 border-[hsl(var(--ink))] bg-[hsl(var(--background))] px-3 py-1 font-mono-accent text-[10px] uppercase tracking-[0.25em] text-[hsl(var(--ink))]">
-        <span className="h-1.5 w-1.5 bg-[hsl(var(--orange))]" />
-        Terminal
-      </div> */}
 
       <Terminal className="shadow-[12px_12px_0_0_hsl(var(--orange))]">
         <TerminalChrome>
@@ -240,7 +249,7 @@ function Index() {
 
         <main className="flex-1">
           {/* ============== HERO ============== */}
-          <section className="relative overflow-hidden pt-14 pr-5 pb-20 md:pt-20 md:pr-10 md:pb-28">
+          <section className="relative overflow-hidden pt-14 pr-5 pb-24 md:pt-20 md:pr-10 md:pb-40">
             {/* large faint section number, off-axis */}
             <div
               aria-hidden
@@ -305,11 +314,10 @@ function Index() {
             </div>
           </section>
 
-          {/* ============== SYSTEM BAND ============== */}
-          <HeroMarqueeMono />
+          <ProductsHeaderStrip />
 
           {/* ============== PRODUCTS ============== */}
-          <section className="relative pt-24 pr-5 pb-24 md:pt-32 md:pr-10 md:pb-32">
+          <section className="relative pt-24 pr-5 pb-28 md:pt-28 md:pr-10 md:pb-32">
             <div className="mx-auto w-full max-w-[1400px]">
               {/* Section header — asymmetric: label far left, oversized number far right */}
               <div className="mb-12 grid grid-cols-12 items-end gap-4">
@@ -382,7 +390,7 @@ function Index() {
                         <Button
                           asChild
                           variant="link"
-                          className="group h-auto rounded-none px-0 py-0 font-mono-accent text-[12px] uppercase tracking-[0.22em] text-[hsl(var(--ink))]/60 hover:text-[hsl(var(--ink))] hover:no-underline"
+                          className="group h-auto rounded-none px-0 py-0 font-mono-accent text-[12px] uppercase tracking-[0.22em] text-[hsl(var(--ink))]/60 hover:text-[hsl(var(--orange))] hover:no-underline"
                         >
                           <a href={GITHUB_URL}>[ source on github ↗ ]</a>
                         </Button>
