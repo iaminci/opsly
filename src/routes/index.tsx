@@ -125,7 +125,7 @@ function VerticalMarquee() {
   return (
     <div
       aria-hidden="true"
-      className="fixed top-0 left-4 z-20 hidden h-screen w-10 md:block"
+      className="fixed top-0 left-[16px] z-20 hidden h-screen w-10 md:block"
     >
       <Marquee
         text={MARQUEE_TEXT}
@@ -144,7 +144,7 @@ function HeroMarqueeMono() {
 function TopBar() {
   return (
     <div className="border-b-2 border-[hsl(var(--ink))] bg-[hsl(var(--background))]">
-      <div className="mx-auto flex w-full max-w-[1400px] items-center justify-between px-5 py-3 md:px-10">
+      <div className="mx-auto flex w-full max-w-[1400px] items-center justify-between py-3 pr-5 md:pr-10">
         <div className="flex items-center gap-3 font-mono-accent text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--ink))]/70">
           <Dot className="inline-block" />
           <span className="text-[hsl(var(--ink))]">opsly</span>
@@ -235,12 +235,12 @@ function Index() {
 
       <VerticalMarquee />
 
-      <div className="relative z-10 flex min-h-screen flex-col md:pl-20">
+      <div className="relative z-10 flex min-h-screen flex-col pl-5 md:pl-[88px]">
         <TopBar />
 
         <main className="flex-1">
           {/* ============== HERO ============== */}
-          <section className="relative overflow-hidden px-5 pt-14 pb-20 md:px-10 md:pt-20 md:pb-28">
+          <section className="relative overflow-hidden pt-14 pr-5 pb-20 md:pt-20 md:pr-10 md:pb-28">
             {/* large faint section number, off-axis */}
             <div
               aria-hidden
@@ -309,7 +309,7 @@ function Index() {
           <HeroMarqueeMono />
 
           {/* ============== PRODUCTS ============== */}
-          <section className="relative px-5 pt-24 pb-24 md:px-10 md:pt-32 md:pb-32">
+          <section className="relative pt-24 pr-5 pb-24 md:pt-32 md:pr-10 md:pb-32">
             <div className="mx-auto w-full max-w-[1400px]">
               {/* Section header — asymmetric: label far left, oversized number far right */}
               <div className="mb-12 grid grid-cols-12 items-end gap-4">
@@ -435,7 +435,7 @@ function Index() {
 
           {/* divider strip */}
           <div className="border-y-2 border-[hsl(var(--ink))] bg-[hsl(var(--surface))]">
-            <div className="mx-auto flex w-full max-w-[1400px] items-center justify-between px-5 py-3 font-mono-accent text-[11px] uppercase tracking-[0.25em] text-[hsl(var(--ink))]/55 md:px-10">
+            <div className="mx-auto flex w-full max-w-[1400px] items-center justify-between py-3 pr-5 font-mono-accent text-[11px] uppercase tracking-[0.25em] text-[hsl(var(--ink))]/55 md:pr-10">
               <span>02 — credits</span>
               <span className="hidden md:inline">
                 build by hand, no funnels.
@@ -445,7 +445,7 @@ function Index() {
           </div>
 
           {/* ============== BUILDER + PHILOSOPHY ============== */}
-          <section className="relative px-5 pt-24 pb-28 md:px-10 md:pt-28 md:pb-32">
+          <section className="relative pt-24 pr-5 pb-28 md:pt-28 md:pr-10 md:pb-32">
             <div className="mx-auto grid w-full max-w-[1400px] grid-cols-12 items-start gap-10 lg:gap-16">
               {/* LEFT — Built by */}
               <div className="col-span-12 lg:col-span-6">
@@ -503,7 +503,7 @@ function Index() {
 
         {/* ============== FOOTER ============== */}
         <footer className="border-t-2 border-[hsl(var(--ink))] bg-[hsl(var(--background))]">
-          <div className="mx-auto grid w-full max-w-[1400px] grid-cols-12 items-center gap-4 px-5 py-7 md:px-10">
+          <div className="mx-auto grid w-full max-w-[1400px] grid-cols-12 items-center gap-4 py-7 pr-5 md:pr-10">
             <div className="col-span-4 md:col-span-3">
               <p className="font-display text-2xl leading-none text-[hsl(var(--ink))]">
                 Opsly

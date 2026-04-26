@@ -47,6 +47,13 @@ const marqueeTrackVariants = cva("track flex shrink-0 select-none", {
       vertical: "h-max flex-col items-center justify-start",
     },
   },
+  compoundVariants: [
+    {
+      variant: "primary",
+      orientation: "vertical",
+      className: "pt-8 tracking-[0.47em]",
+    },
+  ],
   defaultVariants: {
     variant: "default",
     orientation: "horizontal",
@@ -100,7 +107,8 @@ const Marquee = React.forwardRef<HTMLDivElement, MarqueeProps>(
           <span
             className={cn(
               "shrink-0 whitespace-pre",
-              isVertical && "[writing-mode:vertical-rl]",
+              isVertical &&
+                "[writing-mode:vertical-lr] [text-orientation:upright]",
             )}
           >
             {text}
@@ -108,7 +116,8 @@ const Marquee = React.forwardRef<HTMLDivElement, MarqueeProps>(
           <span
             className={cn(
               "shrink-0 whitespace-pre",
-              isVertical && "[writing-mode:vertical-rl]",
+              isVertical &&
+                "[writing-mode:vertical-lr] [text-orientation:upright]",
             )}
             aria-hidden="true"
           >
