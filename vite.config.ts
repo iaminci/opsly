@@ -1,5 +1,4 @@
 import { defineConfig, loadEnv, mergeConfig } from "vite";
-import { defineConfig as defineLovableConfig } from "@lovable.dev/vite-tanstack-config";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
 import viteTsConfigPaths from "vite-tsconfig-paths";
@@ -39,9 +38,4 @@ function vercelViteConfig(env: { mode: string }) {
   });
 }
 
-export default defineConfig(async (env) => {
-  if (process.env.VERCEL) {
-    return vercelViteConfig(env);
-  }
-  return await defineLovableConfig()(env);
-});
+export default defineConfig((env) => vercelViteConfig(env));

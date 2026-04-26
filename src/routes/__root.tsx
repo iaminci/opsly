@@ -36,8 +36,7 @@ export const Route = createRootRoute({
       },
       { name: "author", content: "Opsly" },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:card", content: "summary" }
     ],
     links: [
       { rel: "icon", type: "image/png", href: "/favicon.png" },
