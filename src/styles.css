@@ -1,4 +1,5 @@
-@import "tailwindcss" source(none);
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap");
+@import "tailwindcss";
 @source "../src";
 @import "tw-animate-css";
 
@@ -7,8 +8,9 @@
 @theme inline {
   --radius-sm: 0px;
   --radius-md: 0px;
-  --radius-lg: 2px;
-  --radius-xl: 2px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -23,31 +25,160 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-border: var(--border);
   --color-ring: var(--ring);
-  --shadow-brutal: 6px 6px 0 0 var(--foreground);
-  --shadow-brutal-sm: 4px 4px 0 0 var(--foreground);
+
+  --color-ink: var(--ink);
+  --color-orange: var(--orange);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+
+  --shadow-brutal: 8px 8px 0 0 hsl(var(--ink));
+  --shadow-brutal-sm: 4px 4px 0 0 hsl(var(--ink));
+  --shadow-brutal-orange: 8px 8px 0 0 hsl(var(--orange));
+  --shadow-brutal-orange-sm: 4px 4px 0 0 hsl(var(--orange));
 }
 
 :root {
-  --background: oklch(0.985 0.005 90);
-  --foreground: oklch(0.18 0.01 90);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.18 0.01 90);
-  --primary: oklch(0.18 0.01 90);
-  --primary-foreground: oklch(0.985 0.005 90);
-  --secondary: oklch(0.95 0.01 90);
-  --secondary-foreground: oklch(0.18 0.01 90);
-  --muted: oklch(0.95 0.01 90);
-  --muted-foreground: oklch(0.45 0.01 90);
-  --accent: oklch(0.82 0.18 85);
-  --accent-foreground: oklch(0.18 0.01 90);
-  --border: oklch(0.18 0.01 90);
-  --ring: oklch(0.18 0.01 90);
+  --radius: 0px;
+
+  --ink: 42 38% 92%;
+  --orange: 16 100% 47%;
+  --surface: 225 35% 9%;
+  --surface-2: 225 28% 13%;
+
+  --background: 225 45% 5%;
+  --foreground: 42 38% 92%;
+  --card: 225 35% 9%;
+  --card-foreground: 42 38% 92%;
+  --popover: 225 45% 5%;
+  --popover-foreground: 42 38% 92%;
+
+  --primary: 16 100% 47%;
+  --primary-foreground: 42 38% 96%;
+  --secondary: 225 35% 9%;
+  --secondary-foreground: 42 38% 92%;
+
+  --muted: 225 22% 16%;
+  --muted-foreground: 42 12% 68%;
+
+  --accent: 16 100% 47%;
+  --accent-foreground: 42 38% 96%;
+  --destructive: 0 80% 55%;
+
+  --border: 42 38% 92%;
+  --input: 42 38% 92%;
+  --ring: 16 100% 47%;
+
+  --sidebar: 225 45% 5%;
+  --sidebar-foreground: 42 38% 92%;
+  --sidebar-primary: 16 100% 47%;
+  --sidebar-primary-foreground: 42 38% 96%;
+  --sidebar-accent: 225 35% 9%;
+  --sidebar-accent-foreground: 42 38% 92%;
+  --sidebar-border: 42 38% 92%;
+  --sidebar-ring: 16 100% 47%;
 }
 
 @layer base {
   body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
-    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: "Space Grotesk", ui-sans-serif, system-ui, -apple-system,
+      "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background: hsl(var(--orange));
+    color: hsl(var(--ink));
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: "Archivo Black", "Space Grotesk", ui-sans-serif, system-ui,
+      sans-serif;
+    font-weight: 900;
+    letter-spacing: -0.045em;
+  }
+
+  .font-mono-accent {
+    font-family: "JetBrains Mono", "DankMono Nerd Font Mono", "Fira Code",
+      ui-monospace, monospace;
+  }
+
+  /* statement line — Dank Mono only; distinct from body (Space Grotesk) and mono-accent (JetBrains) */
+  .font-dank-mono {
+    font-family: "Dank Mono", "DankMono Nerd Font Mono", ui-monospace, monospace;
+  }
+
+  .bg-grid {
+    background-image: linear-gradient(
+        to right,
+        hsl(var(--ink) / 0.04) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, hsl(var(--ink) / 0.04) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .bg-noise {
+    background-image: radial-gradient(
+      hsl(var(--ink) / 0.025) 1px,
+      transparent 1px
+    );
+    background-size: 4px 4px;
+  }
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes marquee-reverse {
+    from {
+      transform: translateX(-50%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  .animate-marquee {
+    animation: marquee 38s linear infinite;
+    will-change: transform;
+  }
+
+  .animate-marquee-reverse {
+    animation: marquee-reverse 52s linear infinite;
+    will-change: transform;
+  }
+
+  .marquee:hover .track {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee .track {
+      animation: none;
+      transform: none;
+    }
+  }
+
+  @keyframes blink {
+    0%, 49% {
+      opacity: 1;
+    }
+    50%, 100% {
+      opacity: 0;
+    }
+  }
+
+  .animate-blink {
+    animation: blink 1.05s step-end infinite;
   }
 }
