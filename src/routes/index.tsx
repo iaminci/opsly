@@ -1,5 +1,24 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Dot } from "@/components/ui/dot";
+import { Marquee } from "@/components/ui/marquee";
+import {
+  Panel,
+  PanelBody,
+  PanelFooter,
+  PanelHeader,
+} from "@/components/ui/panel";
+import { Tag } from "@/components/ui/tag";
+import {
+  Terminal,
+  TerminalBody,
+  TerminalChrome,
+  TerminalTrafficLights,
+} from "@/components/ui/terminal";
+import { cn } from "@/lib/utils";
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -41,10 +60,10 @@ const philosophy = [
 ] as const;
 
 const MARQUEE_TEXT =
-  "SINGLE TOOL ◆ NO DRIFT ◆ OFFLINE BY DEFAULT ◆ FILES OVER PLATFORMS ◆ BUILT TO LAST ◆ ";
+  "LOCAL-FIRST ◆ OFFLINE DEFAULT ◆ NO DRIFT MODE ◆ SINGLE TOOL ◆ BUILT TO LAST ◆ LOCAL-FIRST ◆ ";
 
 const MARQUEE_MONO_TEXT =
-  "[ RUNTIME ] BROWSER • [ STORAGE ] LOCAL • [ SYNC ] DISABLED • [ ACCOUNTS ] NONE • [ TELEMETRY ] OFF • ";
+  "[ RUNTIME ] BROWSER • [ STORAGE ] LOCAL • [ SYNC ] DISABLED • [ ACCOUNTS ] NONE • [ TELEMETRY ] OFF • [ RUNTIME ] BROWSER • ";
 
 function PrimaryCTA({
   children,
@@ -57,20 +76,25 @@ function PrimaryCTA({
 }) {
   const padding = size === "lg" ? "px-7 py-4 text-base" : "px-5 py-3 text-sm";
   return (
-    <a
-      href={href}
-      className={`group relative inline-flex items-center gap-3 border-2 border-[hsl(var(--ink))] bg-[hsl(var(--orange))] font-mono-accent font-bold uppercase tracking-[0.08em] text-[hsl(var(--ink))] shadow-[8px_8px_0_0_hsl(var(--ink))] transition-[transform,box-shadow] duration-100 hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-[2px_2px_0_0_hsl(var(--ink))] active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0_0_hsl(var(--ink))] ${padding}`}
+    <Button
+      asChild
+      className={cn(
+        "group relative h-auto justify-start gap-3 rounded-none border-2 border-[hsl(var(--ink))] bg-[hsl(var(--orange))] font-mono-accent font-bold uppercase tracking-[0.08em] text-[hsl(var(--ink))] shadow-[8px_8px_0_0_hsl(var(--ink))] transition-[transform,box-shadow] duration-100 hover:translate-x-[3px] hover:translate-y-[3px] hover:bg-[hsl(var(--orange))] hover:shadow-[2px_2px_0_0_hsl(var(--ink))] active:translate-x-[5px] active:translate-y-[5px] active:shadow-[0px_0px_0_0_hsl(var(--ink))]",
+        padding,
+      )}
     >
-      <span
-        aria-hidden="true"
-        className="inline-block -translate-x-[6px] opacity-0 transition-all duration-200 ease group-hover:translate-x-0 group-hover:opacity-100"
-      >
-        →
-      </span>
-      <span className="inline-block transition-all duration-200 ease group-hover:translate-x-[2px]">
-        {children}
-      </span>
-    </a>
+      <a href={href}>
+        <span
+          aria-hidden="true"
+          className="inline-block -translate-x-[6px] opacity-0 transition-all duration-200 ease group-hover:translate-x-0 group-hover:opacity-100"
+        >
+          →
+        </span>
+        <span className="inline-block transition-all duration-200 ease group-hover:translate-x-[2px]">
+          {children}
+        </span>
+      </a>
+    </Button>
   );
 }
 
@@ -82,42 +106,39 @@ function GhostLink({
   href: string;
 }) {
   return (
-    <a
-      href={href}
-      className="group inline-flex items-center gap-2 border-b-2 border-[hsl(var(--ink))] pb-0.5 font-mono-accent text-sm font-medium uppercase tracking-wider text-[hsl(var(--ink))] hover:text-[hsl(var(--orange))]"
+    <Button
+      asChild
+      variant="link"
+      className="group inline-flex h-auto items-center gap-2 rounded-none border-b-2 border-[hsl(var(--ink))] px-0 pt-0 pb-0.5 font-mono-accent text-sm font-medium uppercase tracking-wider text-[hsl(var(--ink))] hover:text-[hsl(var(--orange))] hover:no-underline"
     >
-      <span>{children}</span>
-      <span className="inline-block transition-transform duration-100 group-hover:translate-x-1">
-        ↗
-      </span>
-    </a>
+      <a href={href}>
+        <span>{children}</span>
+        <span className="inline-block transition-transform duration-100 group-hover:translate-x-1">
+          ↗
+        </span>
+      </a>
+    </Button>
   );
 }
 
-function Marquee() {
+function VerticalMarquee() {
   return (
-    <div className="marquee relative w-full overflow-hidden border-y-2 border-[hsl(var(--ink))] bg-[hsl(var(--orange))] py-4">
-      <div className="track flex w-max shrink-0 animate-marquee items-center font-mono-accent text-base font-bold uppercase tracking-[0.16em] text-[hsl(var(--ink))] select-none">
-        <span className="shrink-0 whitespace-pre">{MARQUEE_TEXT}</span>
-        <span className="shrink-0 whitespace-pre" aria-hidden="true">
-          {MARQUEE_TEXT}
-        </span>
-      </div>
+    <div
+      aria-hidden="true"
+      className="fixed top-0 left-4 z-20 hidden h-screen w-10 md:block"
+    >
+      <Marquee
+        text={MARQUEE_TEXT}
+        variant="primary"
+        orientation="vertical"
+        className="h-full w-full"
+      />
     </div>
   );
 }
 
-function MarqueeMono() {
-  return (
-    <div className="marquee w-full overflow-hidden border-b-2 border-[hsl(var(--ink))]/60 bg-[hsl(var(--surface))] py-2">
-      <div className="track flex w-max shrink-0 animate-marquee-reverse items-center font-mono-accent text-[11px] uppercase tracking-[0.22em] text-[hsl(var(--ink))]/55 select-none">
-        <span className="shrink-0 whitespace-pre">{MARQUEE_MONO_TEXT}</span>
-        <span className="shrink-0 whitespace-pre" aria-hidden="true">
-          {MARQUEE_MONO_TEXT}
-        </span>
-      </div>
-    </div>
-  );
+function HeroMarqueeMono() {
+  return <Marquee text={MARQUEE_MONO_TEXT} variant="mono" />;
 }
 
 function TopBar() {
@@ -125,7 +146,7 @@ function TopBar() {
     <div className="border-b-2 border-[hsl(var(--ink))] bg-[hsl(var(--background))]">
       <div className="mx-auto flex w-full max-w-[1400px] items-center justify-between px-5 py-3 md:px-10">
         <div className="flex items-center gap-3 font-mono-accent text-[11px] uppercase tracking-[0.2em] text-[hsl(var(--ink))]/70">
-          <span className="inline-block h-2 w-2 bg-[hsl(var(--orange))]" />
+          <Dot className="inline-block" />
           <span className="text-[hsl(var(--ink))]">opsly</span>
           <span className="text-[hsl(var(--ink))]/40">/</span>
           <span>v0.1 · system</span>
@@ -148,9 +169,6 @@ function TopBar() {
   );
 }
 
-const TRAFFIC_LIGHT_SQUARE =
-  "size-[12px] shrink-0 border-2 border-black";
-
 function HeroTerminal() {
   return (
     <div className="relative pointer-events-none select-none" aria-hidden="true">
@@ -160,30 +178,15 @@ function HeroTerminal() {
         Terminal
       </div> */}
 
-      <div className="border-2 border-[hsl(var(--ink))] bg-[hsl(var(--surface))] shadow-[12px_12px_0_0_hsl(var(--orange))]">
-        {/* Window chrome */}
-        <div className="flex items-center justify-between border-b-2 border-[hsl(var(--ink))] bg-[hsl(var(--surface-2))] px-4 py-2.5">
-          <div className="flex items-center gap-1.5">
-            <span
-              className={`${TRAFFIC_LIGHT_SQUARE} bg-[#ff2d00]`}
-              aria-hidden
-            />
-            <span
-              className={`${TRAFFIC_LIGHT_SQUARE} bg-[#ffd400] translate-y-[1px]`}
-              aria-hidden
-            />
-            <span
-              className={`${TRAFFIC_LIGHT_SQUARE} bg-[#00ff66]`}
-              aria-hidden
-            />
-          </div>
+      <Terminal className="shadow-[12px_12px_0_0_hsl(var(--orange))]">
+        <TerminalChrome>
+          <TerminalTrafficLights />
           <span className="font-mono-accent text-[10px] uppercase tracking-[0.2em] text-[hsl(var(--ink))]/50">
             · ACTIVE
           </span>
-        </div>
+        </TerminalChrome>
 
-        {/* Terminal body */}
-        <div className="space-y-2 px-6 py-6 font-mono-accent text-[13.5px] leading-relaxed text-[hsl(var(--ink))]/85">
+        <TerminalBody>
           <p>
             <span className="text-[hsl(var(--orange))]">~$</span>{" "}
             <span className="text-[hsl(var(--ink))]">opsly run md</span>
@@ -202,32 +205,37 @@ function HeroTerminal() {
           </p>
           <p className="pt-3">
             <span></span>
-          </p>  
+          </p>
           <p className="pl-1">
             <span>ready.</span>
-          </p>  
+          </p>
           <p className="pl-1">
             <span className="text-[hsl(var(--orange))]">~$</span>{" "}
             <span className="text-[hsl(var(--ink))]/70">█</span>
           </p>
-        </div>
-      </div>
+        </TerminalBody>
+      </Terminal>
 
       {/* corner stamp */}
-      <div className="absolute -bottom-3 -right-3 hidden border-2 border-[hsl(var(--ink))] bg-[hsl(var(--ink))] px-3 py-1 font-mono-accent text-[10px] font-bold uppercase tracking-[0.2em] text-[hsl(var(--background))] md:inline-block">
+      <Tag
+        size="lg"
+        className="absolute -bottom-3 -right-3 hidden md:inline-block"
+      >
         instance
-      </div>
+      </Tag>
     </div>
   );
 }
 
 function Index() {
   return (
-    <div className="relative flex min-h-screen flex-col bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
+    <div className="relative min-h-screen bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
       {/* Subtle grid backdrop, never decorative-looking */}
       <div className="pointer-events-none fixed inset-0 bg-grid opacity-60" />
 
-      <div className="relative z-10 flex flex-col">
+      <VerticalMarquee />
+
+      <div className="relative z-10 flex min-h-screen flex-col md:pl-20">
         <TopBar />
 
         <main className="flex-1">
@@ -246,9 +254,7 @@ function Index() {
               <div className="relative min-w-0 lg:col-span-7">
                 {/* meta strip */}
                 <div className="mb-6 flex flex-wrap items-center gap-3 font-mono-accent text-[11px] uppercase tracking-[0.25em] text-[hsl(var(--ink))]/65">
-                  <span className="border-2 border-[hsl(var(--ink))] bg-[hsl(var(--ink))] px-2 py-0.5 text-[hsl(var(--background))]">
-                    01
-                  </span>
+                  <Tag>01</Tag>
                   <span>opsly runtime</span>
                   <span className="text-[hsl(var(--ink))]/40">//</span>
                   <span className="text-[hsl(var(--orange))]">
@@ -290,7 +296,7 @@ function Index() {
 
                 {/* Sticky note style asymmetric label below */}
                 <div className="mt-10 flex items-start gap-3 font-mono-accent text-[11px] uppercase tracking-[0.22em] text-[hsl(var(--ink))]/60 lg:pl-6">
-                  <span className="mt-[3px] h-2 w-2 shrink-0 bg-[hsl(var(--orange))]" />
+                  <Dot className="mt-[3px] shrink-0" />
                   <p>
                     built to stay out of your way.
                   </p>
@@ -299,11 +305,8 @@ function Index() {
             </div>
           </section>
 
-          {/* ============== MARQUEE BAND ============== */}
-          <Marquee />
-
-          {/* secondary, softer system marquee */}
-          <MarqueeMono />
+          {/* ============== SYSTEM BAND ============== */}
+          <HeroMarqueeMono />
 
           {/* ============== PRODUCTS ============== */}
           <section className="relative px-5 pt-24 pb-24 md:px-10 md:pt-32 md:pb-32">
@@ -312,9 +315,7 @@ function Index() {
               <div className="mb-12 grid grid-cols-12 items-end gap-4">
                 <div className="col-span-12 md:col-span-7">
                   <div className="flex items-baseline gap-3 font-mono-accent text-[11px] uppercase tracking-[0.25em] text-[hsl(var(--ink))]/60">
-                    <span className="border-2 border-[hsl(var(--ink))] bg-[hsl(var(--ink))] px-2 py-0.5 text-[hsl(var(--background))]">
-                      products
-                    </span>
+                    <Tag>products</Tag>
                     <span>/ 01</span>
                   </div>
                   <h2 className="font-display mt-4 text-5xl leading-[0.9] text-[hsl(var(--ink))] md:text-7xl">
@@ -337,23 +338,26 @@ function Index() {
               <div className="grid grid-cols-12 items-start gap-6">
                 {/* Vertical "01" badge floating left */}
                 <div className="col-span-2 hidden md:block">
-                  <div className="border-2 border-[hsl(var(--ink))] bg-[hsl(var(--background))] p-4 font-mono-accent text-[10px] uppercase tracking-[0.25em] text-[hsl(var(--ink))]/60 shadow-[6px_6px_0_0_hsl(var(--ink))]">
+                  <Card variant="slot">
                     <p className="font-display text-5xl leading-none text-[hsl(var(--ink))]">
                       01
                     </p>
                     <p className="mt-3">slot 01 / 01</p>
                     <p className="mt-1 text-[hsl(var(--orange))]">active</p>
-                  </div>
+                  </Card>
                 </div>
 
-                <article className="relative col-span-12 border-2 border-[hsl(var(--ink))] bg-[hsl(var(--surface))] shadow-[14px_14px_0_0_hsl(var(--ink))] md:col-span-9">
+                <Card
+                  variant="product"
+                  className="relative col-span-12 md:col-span-9"
+                >
                   {/* internal split header */}
                   <div className="flex items-center justify-between border-b-2 border-[hsl(var(--ink))] bg-[hsl(var(--background))] px-6 py-3 font-mono-accent text-[11px] uppercase tracking-[0.22em]">
                     <span className="text-[hsl(var(--ink))]/70">
                       01 · markdown workspace
                     </span>
                     <span className="hidden items-center gap-2 text-[hsl(var(--orange))] md:inline-flex">
-                      <span className="h-1.5 w-1.5 animate-blink bg-[hsl(var(--orange))]" />
+                      <Dot size="sm" className="animate-blink" />
                       live · md.opsly.dev
                     </span>
                   </div>
@@ -375,18 +379,19 @@ function Index() {
 
                       <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
                         <PrimaryCTA>Enter</PrimaryCTA>
-                        <a
-                          href={GITHUB_URL}
-                          className="group font-mono-accent text-[12px] uppercase tracking-[0.22em] text-[hsl(var(--ink))]/60 hover:text-[hsl(var(--ink))]"
+                        <Button
+                          asChild
+                          variant="link"
+                          className="group h-auto rounded-none px-0 py-0 font-mono-accent text-[12px] uppercase tracking-[0.22em] text-[hsl(var(--ink))]/60 hover:text-[hsl(var(--ink))] hover:no-underline"
                         >
-                          [ source on github ↗ ]
-                        </a>
+                          <a href={GITHUB_URL}>[ source on github ↗ ]</a>
+                        </Button>
                       </div>
                     </div>
 
                     {/* mini spec block — stamped, brutal, tabular */}
                     <div className="md:col-span-5 md:translate-y-1">
-                      <div className="border-2 border-[hsl(var(--ink))]/70 bg-[hsl(var(--background))]">
+                      <Card variant="spec">
                         <p className="border-b-2 border-[hsl(var(--ink))]/70 bg-[hsl(var(--surface-2))] px-4 py-2 font-mono-accent text-[10px] uppercase tracking-[0.25em] text-[hsl(var(--ink))]/60">
                           spec.txt
                         </p>
@@ -410,19 +415,19 @@ function Index() {
                             </div>
                           ))}
                         </dl>
-                      </div>
+                      </Card>
                     </div>
                   </div>
-                </article>
+                </Card>
 
                 {/* "more soon" stub — small, ghosted, asymmetric placement */}
                 <aside className="col-span-12 md:col-span-3 md:col-start-10 md:-translate-y-6">
-                  <div className="border-2 border-dashed border-[hsl(var(--ink))]/35 p-5 font-mono-accent text-[11px] uppercase tracking-[0.22em] text-[hsl(var(--ink))]/45">
+                  <Card variant="ghost">
                     <p className="text-[hsl(var(--ink))]/70">slot 02 · empty</p>
                     <p className="mt-2">
                       next tool ships when it's ready. not before.
                     </p>
-                  </div>
+                  </Card>
                 </aside>
               </div>
             </div>
@@ -445,9 +450,7 @@ function Index() {
               {/* LEFT — Built by */}
               <div className="col-span-12 lg:col-span-6">
                 <div className="flex items-baseline gap-3 font-mono-accent text-[11px] uppercase tracking-[0.25em] text-[hsl(var(--ink))]/60">
-                  <span className="border-2 border-[hsl(var(--ink))] bg-[hsl(var(--ink))] px-2 py-0.5 text-[hsl(var(--background))]">
-                    built by
-                  </span>
+                  <Tag>built by</Tag>
                   <span>/ human</span>
                 </div>
 
@@ -468,30 +471,31 @@ function Index() {
               <div className="col-span-12 lg:col-span-6 lg:translate-y-10">
                 {/* Tag label sticking out (intentional misalignment) */}
                 <div className="absolute -top-4 z-10 inline-flex -translate-y-1 items-center gap-2 border-2 border-[hsl(var(--ink))] bg-[hsl(var(--background))] px-3 py-1 font-mono-accent text-[10px] uppercase tracking-[0.25em] text-[hsl(var(--ink))]">
-                  <span className="h-1.5 w-1.5 bg-[hsl(var(--orange))]" />
+                  <Dot size="sm" />
                   Defaults
                 </div>
-                <div className="border-2 border-[hsl(var(--ink))] bg-[hsl(var(--surface))] shadow-[10px_10px_0_0_hsl(var(--orange))]">
-                  {/* head */}
-                  <div className="flex items-center justify-between border-b-2 border-[hsl(var(--ink))] bg-[hsl(var(--background))] px-5 py-2.5 font-mono-accent text-[11px] uppercase tracking-[0.25em]">
+                <Panel className="shadow-[10px_10px_0_0_hsl(var(--orange))]">
+                  <PanelHeader>
                     <span className="text-[hsl(var(--ink))]/70">
                       philosophy.md
                     </span>
                     <span className="text-[hsl(var(--ink))]/40">— · 04 ln</span>
-                  </div>
+                  </PanelHeader>
 
-                  <pre className="px-6 py-7 font-mono-accent text-[15px] leading-[1.9] text-[hsl(var(--ink))]/85">
-                    {philosophy.map(
-                      (line, i) =>
-                        `${String(i + 1).padStart(2, "0")}  >  ${line}`,
-                    ).join("\n")}
-                  </pre>
+                  <PanelBody>
+                    <pre className="px-6 py-7 font-mono-accent text-[15px] leading-[1.9] text-[hsl(var(--ink))]/85">
+                      {philosophy.map(
+                        (line, i) =>
+                          `${String(i + 1).padStart(2, "0")}  >  ${line}`,
+                      ).join("\n")}
+                    </pre>
+                  </PanelBody>
 
-                  <div className="border-t-2 border-[hsl(var(--ink))]/30 bg-[hsl(var(--surface-2))] px-6 py-3 font-mono-accent text-[11px] uppercase tracking-[0.22em] text-[hsl(var(--ink))]/55">
+                  <PanelFooter>
                     <span className="text-[hsl(var(--orange))]">// </span>
                     not a manifesto. just defaults.
-                  </div>
-                </div>
+                  </PanelFooter>
+                </Panel>
               </div>
             </div>
           </section>

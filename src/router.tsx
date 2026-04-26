@@ -1,4 +1,7 @@
 import { createRouter, useRouter } from "@tanstack/react-router";
+
+import { Button } from "@/components/ui/button";
+
 import { routeTree } from "./routeTree.gen";
 
 function DefaultErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
@@ -33,21 +36,22 @@ function DefaultErrorComponent({ error, reset }: { error: Error; reset: () => vo
           </pre>
         )}
         <div className="mt-6 flex items-center justify-center gap-3">
-          <button
+          <Button
             onClick={() => {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="shadow-none"
           >
             Try again
-          </button>
-          <a
-            href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+          </Button>
+          <Button
+            asChild
+            variant="outline"
+            className="shadow-none hover:text-foreground"
           >
-            Go home
-          </a>
+            <a href="/">Go home</a>
+          </Button>
         </div>
       </div>
     </div>
