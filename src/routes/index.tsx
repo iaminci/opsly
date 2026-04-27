@@ -278,7 +278,7 @@ function Index() {
 
                 {/* cluster: tagline + bullets, intentional uneven margins */}
                 <div className="mt-8 grid grid-cols-12 gap-4">
-                  <p className="col-span-12 max-w-full overflow-x-auto whitespace-nowrap text-lg leading-[1.15] tracking-tight [scrollbar-width:thin] sm:text-xl md:max-w-none md:text-2xl md:leading-[1.1] lg:col-span-10 lg:text-[2rem]">
+                  <p className="col-span-12 text-lg leading-[1.15] tracking-tight sm:text-xl md:text-2xl md:leading-[1.1] lg:col-span-10 lg:text-[2rem]">
                       Simple tools.{" "}
                     <span className="text-[hsl(var(--ink))]/55">
                       Clear opinions.
