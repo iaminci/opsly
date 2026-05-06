@@ -283,7 +283,7 @@ function Index() {
                     <span className="text-[hsl(var(--ink))]/55">
                       Clear opinions.
                     </span>{" "}
-                    <span className="bg-[hsl(var(--orange))] px-1.5 text-[hsl(var(--ink))]">
+                    <span className="bg-[hsl(var(--orange))] px-0.5 text-[hsl(var(--ink))]">
                       No compromises.
                     </span>
                   </p>
