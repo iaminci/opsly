@@ -42,7 +42,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const MD_URL = "https://md.opsly.dev";
+const MD_URL = "/md";
 const GITHUB_URL = "https://github.com/iaminci";
 const PROJECTS_URL = "https://github.com/iaminci?tab=repositories";
 
@@ -366,7 +366,7 @@ function Index() {
                     </span>
                     <span className="hidden items-center gap-2 text-[hsl(var(--orange))] md:inline-flex">
                       <Dot size="sm" className="animate-blink" />
-                      live · md.opsly.dev
+                      live · /md
                     </span>
                   </div>
 
@@ -386,7 +386,7 @@ function Index() {
                       </p>
 
                       <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-                        <PrimaryCTA>Enter</PrimaryCTA>
+                        <PrimaryCTA>Visit</PrimaryCTA>
                         <Button
                           asChild
                           variant="link"

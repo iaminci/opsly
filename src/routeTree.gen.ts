@@ -9,38 +9,63 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as MdRouteRouteImport } from './routes/md/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as MdIndexRouteImport } from './routes/md/index'
 
+const MdRouteRoute = MdRouteRouteImport.update({
+  id: '/md',
+  path: '/md',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MdIndexRoute = MdIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => MdRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/md': typeof MdRouteRouteWithChildren
+  '/md/': typeof MdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/md': typeof MdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/md': typeof MdRouteRouteWithChildren
+  '/md/': typeof MdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/md' | '/md/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/md'
+  id: '__root__' | '/' | '/md' | '/md/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  MdRouteRoute: typeof MdRouteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/md': {
+      id: '/md'
+      path: '/md'
+      fullPath: '/md'
+      preLoaderRoute: typeof MdRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +73,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/md/': {
+      id: '/md/'
+      path: '/'
+      fullPath: '/md/'
+      preLoaderRoute: typeof MdIndexRouteImport
+      parentRoute: typeof MdRouteRoute
+    }
   }
 }
 
+interface MdRouteRouteChildren {
+  MdIndexRoute: typeof MdIndexRoute
+}
+
+const MdRouteRouteChildren: MdRouteRouteChildren = {
+  MdIndexRoute: MdIndexRoute,
+}
+
+const MdRouteRouteWithChildren =
+  MdRouteRoute._addFileChildren(MdRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  MdRouteRoute: MdRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
